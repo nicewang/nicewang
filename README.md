@@ -14,3 +14,10 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+- 🔭 I am Nice (Xiaonan Wang in Chinese), a seasoned machine learning scientist with several years industrial working experience at Chinese famous technology companies like Baidu and Ant Group.
+  - Specialize in industrial applied machine learning in the fields of recommendation, searching and AdTech
+  - Have extensive experience in recall, ranking, and CTR prediction using deep learning and generative AI
+- 🏫 Education Background:
+  - M.S. in Electrical Engineering at [UESTC](https://www.usnews.com/education/best-global-universities/university-of-electronic-science-technology-of-china-506780)
+  - B.S. in Electrical Engineering at [HHU](https://www.usnews.com/education/best-global-universities/hohai-university-528997)
+- 
