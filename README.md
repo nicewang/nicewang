@@ -24,7 +24,7 @@ Here are some ideas to get you started:
   - B.S. in Electrical Engineering at [HHU](https://www.usnews.com/education/best-global-universities/hohai-university-528997)
     - 📖 Bachelor's Thesis: [Phased Array Ultrasonic Signal Generator](https://github.com/nicewang/Phased-Array-Ultrasonic-Signal-Generator) 
 - 🌱 Current POIs:
-  - 🤖️ Intersection between <bond>Motion Planning</bond>, <bond>Robot Learning</bond> and <bond>Machine Learning</bond>
+  - 🤖️ Intersection between **Motion Planning**, **Robot Learning** and **Machine Learning**
     - 🌍 [Robotics Exploration & Summarization & Mini Presentation](https://nicewang.github.io/niceproject/learning/robotics/)
   - Machine Learning for EE and Computer Systems
   - Machine Learning and Artificial Intelligence
@@ -32,4 +32,6 @@ Here are some ideas to get you started:
   - [NiceWang's Projects: Highlighted Projects' Page](https://nicewang.github.io/niceproject/)
   - [YouTube Channel](https://www.youtube.com/@XiaonanNiceWang)
   - [Google Scholar](https://scholar.google.com/citations?user=ipnvcRoAAAAJ&hl)
-- 📫 How to reach me: [![Gmail Icon](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:wangxiaonannice@gmail.com?subject=GitHub%20Project%20Inquiry&body=I%20am%20interested%20in%20your%20project.)
+- 📫 How to reach me: <a href="mailto:wangxiaonannice@gmail.com?subject=GitHub%20Project%20Inquiry" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Email Icon" width="45" height="45">
+                      </a>
