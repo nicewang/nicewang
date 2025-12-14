@@ -32,6 +32,4 @@ Here are some ideas to get you started:
   - [NiceWang's Projects: Highlighted Projects' Page](https://nicewang.github.io/niceproject/)
   - [YouTube Channel](https://www.youtube.com/@XiaonanNiceWang)
   - [Google Scholar](https://scholar.google.com/citations?user=ipnvcRoAAAAJ&hl)
-- 📫 How to reach me: <a href="mailto:wangxiaonannice@gmail.com?subject=GitHub%20Project%20Inquiry" target="_blank">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Email Icon" width="45" height="45">
-                      </a>
+- 📫 How to reach me: [![Gmail Icon](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:wangxiaonannice@gmail.com?subject=GitHub%20Project%20Inquiry&body=I%20am%20interested%20in%20your%20project.m
