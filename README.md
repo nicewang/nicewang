@@ -17,7 +17,7 @@ Here are some ideas to get you started:
 - 🔭 I am Nice (Xiaonan Wang in Chinese), a seasoned machine learning scientist with several years industrial working experience at Chinese famous technology companies like Baidu and Ant Group.
   - Specialize in industrial applied machine learning in `recommendation`, `searching` and `AdTech`
   - Experience in `recall`, `ranking`, and `CTR prediction` using `deep learning` and `generative AI`
-- 🏫 Education Background:
+- 🏫 Educational Background:
   - M.S. in Electrical Engineering at [UESTC](https://www.usnews.com/education/best-global-universities/university-of-electronic-science-technology-of-china-506780)
     - 📖 Master's Thesis: [Time-Sequential Wind Dancing Signal Anomaly Detection](https://nicewang.github.io/niceproject/2023/04/18/master-thesis/)
     - 🧐 Highlighted Research Project: [Vision-based Ship Identification](https://nicewang.github.io/niceproject/2023/04/19/ship-identification/)
