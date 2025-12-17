@@ -28,6 +28,10 @@ Here are some ideas to get you started:
     - 🌍 [Robotics Exploration & Summarization & Mini Presentation](https://nicewang.github.io/niceproject/learning/robotics/)
   - Machine Learning for EE and Computer Systems
   - Machine Learning and Artificial Intelligence
+- 👩🏻‍💻 Programming Languages & ML Frameworks & Big Data Technologies:
+  - C/C++, Python, Java, Verilog/VHDL
+  - PyTorch, TensorFlow, Keras
+  - Hadoop/Map-Reduce, PySpark
 - 🔗 Quick Links:
   - [NiceWang's Projects: Highlighted Projects' Page](https://nicewang.github.io/niceproject/)
   - [YouTube Channel](https://www.youtube.com/@XiaonanNiceWang)
