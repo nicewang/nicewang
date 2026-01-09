@@ -23,7 +23,7 @@ Here are some ideas to get you started:
     - 🧐 Highlighted Research Project: [Vision-based Ship Identification](https://nicewang.github.io/niceproject/2023/04/19/ship-identification/)
   - B.S. in Electrical Engineering at [HHU](https://www.usnews.com/education/best-global-universities/hohai-university-528997)
     - 📖 Bachelor's Thesis: [Phased Array Ultrasonic Signal Generator](https://github.com/nicewang/Phased-Array-Ultrasonic-Signal-Generator) 
-- 🌱 Current POIs:
+- 🌱 Current POIs (Points of Interest):
   - 🤖️ Intersection between **Motion Planning**, **Robot Learning** and **Machine Learning**
     - 🌍 [Robotics Exploration & Summarization & Mini Presentation](https://nicewang.github.io/niceproject/learning/robotics/)
   - Machine Learning for EE and Computer Systems
