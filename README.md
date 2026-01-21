@@ -38,5 +38,5 @@ Here are some ideas to get you started:
   - [Google Scholar](https://scholar.google.com/citations?user=ipnvcRoAAAAJ&hl)
 - 📫 How to reach me: [![Gmail Icon](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:wangxiaonannice@gmail.com?subject=GitHub%20Project%20Inquiry&body=I%20am%20interested%20in%20your%20project.)
 
-## My Github Status (Just for Fun) 📝
+## My Github Stats (Just for Fun) 📝
 <img align="center" src="https://github-readme-stats.vercel.app/api?username=nicewang&count_private=true&show_icons=true" />
