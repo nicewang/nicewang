@@ -41,4 +41,5 @@ Here are some ideas to get you started:
 ## My Github Stats (Just for Fun) 📝
 <!-- <img align="center" src="https://github-readme-stats.vercel.app/api?username=nicewang&count_private=true&show_icons=true" /> -->
 <!-- <img width="73.73%" src="https://githubcard.com/nicewang.svg" alt="GitHub Card"> -->
-<img width="100%" src="https://githubcard.com/nicewang.svg" alt="GitHub Card">
+<!-- <img width="100%" src="https://githubcard.com/nicewang.svg" alt="GitHub Card"> -->
+[Github Card](https://githubcard.com/nicewang.svg?d=Se4qzthb)
