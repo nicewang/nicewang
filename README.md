@@ -17,7 +17,6 @@ Here are some ideas to get you started:
 - 🔭 I am Nice (Xiaonan Wang in Chinese), a seasoned machine learning scientist with several years industrial working experience at Chinese famous technology companies like [Baidu](https://www.baidu.com) and [Ant Group](https://www.antgroup.com/en).
   - Specialize in industrial applied machine learning in `recommendation`, `searching` and `AdTech`
   - Experience in `recall`, `ranking`, and `CTR prediction` using `deep learning` and `generative AI`
-<!--  - multi-task learning? -->
 - 🏫 Educational Background:
   - M.S. in Electrical Engineering at [UESTC](https://www.usnews.com/education/best-global-universities/university-of-electronic-science-technology-of-china-506780)
     - 📖 Master's Thesis: [Time-Sequential Wind Dancing Signal Anomaly Detection](https://nicewang.github.io/niceproject/2023/04/18/master-thesis/)
