@@ -43,4 +43,6 @@ Here are some ideas to get you started:
 <!-- <img width="73.73%" src="https://githubcard.com/nicewang.svg" alt="GitHub Card"> -->
 <!-- <img width="100%" src="https://githubcard.com/nicewang.svg" alt="GitHub Card"> -->
 <!-- ![Github Card](https://githubcard.com/nicewang.svg?d=Se4qzthb) --!>
-<img width="50%" height="40%" src="https://githubcard.com/nicewang.svg?d=ZvRPYDFj" alt="GitHub Card">
+<!-- <img width="50%" height="40%" src="https://githubcard.com/nicewang.svg?d=ZvRPYDFj" alt="GitHub Card"> --!>
+<img width="1352" height="3062" alt="image" src="https://github.com/user-attachments/assets/c7c59203-8bb0-4049-8560-313a923042cc" />
+
