@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-<p align="center"><i>"The <b>trade-off</b> is the key word in my life~"</i></p>
+<p align="center"><i>"The <b>trade-off</b> is the key word in my life, and do the <b>indeed</b> work~"</i></p>
 
 <!--
 **nicewang/nicewang** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
