@@ -1,5 +1,7 @@
 ## Hi there 👋
 
+<p align="center"><i>"The <b>trade-off</b> is the key word in my life~"</i></p>
+
 <!--
 **nicewang/nicewang** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
@@ -14,7 +16,7 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-- 🔭 I am Nice (Xiaonan Wang in Chinese), a seasoned machine learning scientist with several years industrial working experience at Chinese famous technology companies like [Baidu](https://www.baidu.com) and [Ant Group](https://www.antgroup.com/en).
+- 🔭 I am Nice <sup>(*Xiaonan Wang* in Chinese)</sup>, a seasoned machine learning scientist with several years industrial working experience at Chinese famous technology companies like [Baidu](https://www.baidu.com) and [Ant Group](https://www.antgroup.com/en).
   - Specialize in industrial applied machine learning in `recommendation`, `searching` and `AdTech`
   - Experience in `recall`, `ranking`, and `CTR prediction` using `deep learning` and `generative AI`
 - 🏫 Educational Background:
