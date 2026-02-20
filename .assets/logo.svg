@@ -1,20 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 900" width="100%" height="100%">
     <defs>
-        <!-- Light Ocean to Grassland Theme Gradients & Filters -->
+        <!-- Deepened Light Ocean & Rigi Mountain Theme Gradients & Filters -->
         <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#E0F2FE"/> <!-- Light Ocean/Sky Blue -->
-            <stop offset="50%" stop-color="#CCFBF1"/> <!-- Soft Mint/Aqua -->
-            <stop offset="100%" stop-color="#DCFCE7"/> <!-- Light Grass Green -->
+            <stop offset="0%" stop-color="#BAE6FD"/>   <!-- Sky 200: Deeper Bright Ocean -->
+            <stop offset="40%" stop-color="#7DD3FC"/>  <!-- Sky 300: Rich Laguna Blue -->
+            <stop offset="75%" stop-color="#5EEAD4"/>  <!-- Teal 300: Deep Tropical Water -->
+            <stop offset="100%" stop-color="#86EFAC"/> <!-- Green 300: Richer Rigi Grass -->
         </linearGradient>
 
         <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#0284C7"/> <!-- Deep Ocean Blue -->
-            <stop offset="100%" stop-color="#059669"/> <!-- Forest/Grass Green -->
+            <stop offset="0%" stop-color="#0369A1"/> <!-- Deep Ocean Blue -->
+            <stop offset="100%" stop-color="#047857"/> <!-- Deep Forest Green -->
         </linearGradient>
 
         <linearGradient id="avatar-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#38BDF8"/>
-            <stop offset="100%" stop-color="#4ADE80"/>
+            <stop offset="0%" stop-color="#0284C7"/>
+            <stop offset="100%" stop-color="#10B981"/>
         </linearGradient>
 
         <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -22,15 +23,50 @@
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
 
+        <!-- Realistic Animated Dolphin & Splashes -->
+        <g id="real-dolphin">
+            <!-- Upper Body (Dark Slate) -->
+            <path d="M 15,65 C 30,55 60,35 100,30 C 140,25 170,45 185,55 C 195,60 190,65 180,65 C 150,65 100,70 50,75 C 30,75 20,70 15,65 Z" fill="#1E293B"/> 
+            <!-- Belly (Light Grey/White) -->
+            <path d="M 50,75 C 100,70 150,65 180,65 C 160,75 110,80 60,80 C 40,80 20,75 15,65 C 20,70 30,75 50,75 Z" fill="#F8FAFC"/> 
+            <!-- Snout -->
+            <path d="M 185,55 C 200,58 205,62 195,65 C 190,66 185,65 180,65 C 185,62 185,58 185,55 Z" fill="#94A3B8"/> 
+            <!-- Dorsal Fin -->
+            <path d="M 90,32 C 100,10 115,15 120,30 C 110,28 100,30 90,32 Z" fill="#1E293B"/> 
+            <!-- Pectoral Fin -->
+            <path d="M 120,72 C 130,100 145,90 135,70 C 130,68 125,70 120,72 Z" fill="#0F172A"/> 
+            <!-- Tail Flukes -->
+            <path d="M 15,65 C 0,50 -5,40 5,60 C -5,80 0,90 15,65 Z" fill="#1E293B"/>
+            
+            <!-- Eye -->
+            <circle cx="170" cy="53" r="2.5" fill="#020617"/>
+            <circle cx="171" cy="52" r="1" fill="#FFFFFF"/>
+
+            <!-- Dynamic Splashes -->
+            <g class="splash-particles" opacity="0.85">
+                <circle cx="140" cy="75" r="4.5" fill="#FFFFFF"/>
+                <circle cx="155" cy="80" r="3" fill="#E0F2FE"/>
+                <circle cx="125" cy="85" r="5" fill="#FFFFFF"/>
+                <circle cx="110" cy="77" r="3.5" fill="#BAE6FD"/>
+                <circle cx="170" cy="70" r="4" fill="#FFFFFF"/>
+                <circle cx="80" cy="80" r="4.5" fill="#F0F9FF"/>
+                <circle cx="60" cy="73" r="2.5" fill="#FFFFFF"/>
+                <circle cx="180" cy="75" r="3" fill="#E0F2FE"/>
+                <circle cx="30" cy="75" r="3.5" fill="#FFFFFF"/>
+                <circle cx="10" cy="70" r="2" fill="#E0F2FE"/>
+                <circle cx="-10" cy="65" r="2.5" fill="#FFFFFF"/>
+            </g>
+        </g>
+
         <!-- Animations and Styles -->
         <style>
             :root {
-                --text-main: #1E293B; /* Dark slate for high contrast on light bg */
-                --text-muted: #475569;
-                --text-dim: #64748B;
+                --text-main: #0F172A; /* Darker slate for readability */
+                --text-muted: #334155;
+                --text-dim: #475569;
                 --accent-blue: #0284C7;
-                --accent-teal: #0D9488;
-                --accent-green: #059669;
+                --accent-teal: #0F766E;
+                --accent-green: #047857;
                 --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
                 --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
             }
@@ -56,8 +92,8 @@
             .link-text { fill: var(--accent-blue); font-weight: 600; text-decoration: underline; transition: fill 0.3s; }
             .code-text { fill: var(--accent-teal); font-family: var(--font-mono); font-size: 13.5px; }
 
-            .tag-bg { fill: #F0FDF4; stroke: #A7F3D0; stroke-width: 1.5; }
-            .tag-text { font-size: 12.5px; font-weight: 600; fill: var(--accent-green); text-anchor: middle; }
+            .tag-bg { fill: rgba(255, 255, 255, 0.65); stroke: rgba(255, 255, 255, 0.9); stroke-width: 1.5; }
+            .tag-text { font-size: 12.5px; font-weight: 600; fill: var(--accent-blue); text-anchor: middle; }
 
             /* Keyframe Animations */
             @keyframes fadeIn {
@@ -76,6 +112,17 @@
                 50% { transform: translateY(-15px); }
             }
 
+            /* Realistic Leaping Arc Animation */
+            @keyframes leap-arc {
+                0% { transform: translate(-100px, 150px) rotate(-35deg); opacity: 0; }
+                10% { opacity: 1; transform: translate(50px, 20px) rotate(-20deg); }
+                35% { transform: translate(250px, -60px) rotate(-5deg); }
+                45% { transform: translate(320px, -50px) rotate(5deg); }
+                70% { opacity: 1; transform: translate(450px, 60px) rotate(35deg); }
+                80% { opacity: 0; transform: translate(550px, 180px) rotate(45deg); }
+                100% { transform: translate(550px, 180px) rotate(45deg); opacity: 0; }
+            }
+
             .fade-in { animation: fadeIn 1s ease-out forwards; opacity: 0; }
             .delay-1 { animation-delay: 0.1s; }
             .delay-2 { animation-delay: 0.3s; }
@@ -92,16 +139,35 @@
             
             .floating { animation: float 6s ease-in-out infinite; }
             .floating-alt { animation: float 8s ease-in-out infinite alternate-reverse; }
+            
+            .leaping { animation: leap-arc 9s cubic-bezier(0.3, 0.1, 0.7, 0.9) infinite; }
+            .leaping-alt { animation: leap-arc 12s cubic-bezier(0.3, 0.1, 0.7, 0.9) infinite; animation-delay: 4.5s; }
         </style>
     </defs>
 
     <!-- Base Background -->
     <rect width="100%" height="100%" fill="url(#bg-grad)" rx="16" />
 
-    <!-- Decorative Glowing Orbs (Light Ocean & Grass Vibes) -->
-    <circle cx="850" cy="200" r="160" fill="#7DD3FC" filter="url(#glow)" opacity="0.4" class="floating" />
-    <circle cx="100" cy="700" r="200" fill="#86EFAC" filter="url(#glow)" opacity="0.4" class="floating-alt" />
-    <circle cx="500" cy="50" r="120" fill="#6EE7B7" filter="url(#glow)" opacity="0.35" class="floating" />
+    <!-- Decorative Glowing Orbs -->
+    <circle cx="850" cy="200" r="160" fill="#38BDF8" filter="url(#glow)" opacity="0.4" class="floating" />
+    <circle cx="100" cy="700" r="200" fill="#2DD4BF" filter="url(#glow)" opacity="0.35" class="floating-alt" />
+    <circle cx="500" cy="50" r="120" fill="#7DD3FC" filter="url(#glow)" opacity="0.4" class="floating" />
+
+    <!-- Dolphin Elements -->
+    <g class="fade-in delay-2">
+        <!-- Small Dolphin moved up to the right of 'Education' -->
+        <g transform="translate(700, 380) scale(0.7)">
+            <g class="leaping-alt">
+                <use href="#real-dolphin" />
+            </g>
+        </g>
+        <!-- Big Dolphin moved down to the bottom right -->
+        <g transform="translate(620, 650) scale(0.95)">
+            <g class="leaping">
+                <use href="#real-dolphin" />
+            </g>
+        </g>
+    </g>
 
     <!-- Main Content Container -->
     <g transform="translate(50, 50)">
