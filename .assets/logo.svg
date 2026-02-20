@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 900" width="100%" height="100%">
     <defs>
-        <!-- Ocean Theme Background Gradients & Filters -->
+        <!-- Light Ocean to Grassland Theme Gradients & Filters -->
         <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#020617"/> <!-- Deep dark blue -->
-            <stop offset="50%" stop-color="#0F172A"/> <!-- Slate ocean depth -->
-            <stop offset="100%" stop-color="#0C4A6E"/> <!-- Ocean blue -->
+            <stop offset="0%" stop-color="#E0F2FE"/> <!-- Light Ocean/Sky Blue -->
+            <stop offset="50%" stop-color="#CCFBF1"/> <!-- Soft Mint/Aqua -->
+            <stop offset="100%" stop-color="#DCFCE7"/> <!-- Light Grass Green -->
         </linearGradient>
 
         <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#38BDF8"/>
-            <stop offset="100%" stop-color="#34D399"/> <!-- Cyan to Emerald gradient -->
+            <stop offset="0%" stop-color="#0284C7"/> <!-- Deep Ocean Blue -->
+            <stop offset="100%" stop-color="#059669"/> <!-- Forest/Grass Green -->
         </linearGradient>
 
         <linearGradient id="avatar-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#38BDF8"/>
-            <stop offset="100%" stop-color="#818CF8"/>
+            <stop offset="100%" stop-color="#4ADE80"/>
         </linearGradient>
 
         <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -25,12 +25,12 @@
         <!-- Animations and Styles -->
         <style>
             :root {
-                --text-main: #F8FAFC;
-                --text-muted: #CBD5E1;
-                --text-dim: #94A3B8;
-                --accent-blue: #38BDF8;
-                --accent-teal: #2DD4BF;
-                --accent-cyan: #06B6D4;
+                --text-main: #1E293B; /* Dark slate for high contrast on light bg */
+                --text-muted: #475569;
+                --text-dim: #64748B;
+                --accent-blue: #0284C7;
+                --accent-teal: #0D9488;
+                --accent-green: #059669;
                 --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
                 --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
             }
@@ -41,7 +41,7 @@
             }
 
             a { cursor: pointer; }
-            a:hover .link-text { fill: #7DD3FC; text-decoration: underline; }
+            a:hover .link-text { fill: #0369A1; text-decoration: underline; }
 
             .title-hi { font-size: 28px; font-weight: 800; fill: url(#text-grad); }
             .quote { font-size: 15px; font-style: italic; fill: var(--text-muted); text-anchor: middle; }
@@ -56,8 +56,8 @@
             .link-text { fill: var(--accent-blue); font-weight: 600; text-decoration: underline; transition: fill 0.3s; }
             .code-text { fill: var(--accent-teal); font-family: var(--font-mono); font-size: 13.5px; }
 
-            .tag-bg { fill: #082F49; stroke: #0C4A6E; stroke-width: 1.5; }
-            .tag-text { font-size: 12.5px; font-weight: 600; fill: var(--accent-cyan); text-anchor: middle; }
+            .tag-bg { fill: #F0FDF4; stroke: #A7F3D0; stroke-width: 1.5; }
+            .tag-text { font-size: 12.5px; font-weight: 600; fill: var(--accent-green); text-anchor: middle; }
 
             /* Keyframe Animations */
             @keyframes fadeIn {
@@ -98,10 +98,10 @@
     <!-- Base Background -->
     <rect width="100%" height="100%" fill="url(#bg-grad)" rx="16" />
 
-    <!-- Decorative Glowing Orbs (Ocean Vibes) -->
-    <circle cx="850" cy="200" r="160" fill="#0EA5E9" filter="url(#glow)" opacity="0.15" class="floating" />
-    <circle cx="100" cy="700" r="200" fill="#0D9488" filter="url(#glow)" opacity="0.12" class="floating-alt" />
-    <circle cx="500" cy="50" r="120" fill="#38BDF8" filter="url(#glow)" opacity="0.1" class="floating" />
+    <!-- Decorative Glowing Orbs (Light Ocean & Grass Vibes) -->
+    <circle cx="850" cy="200" r="160" fill="#7DD3FC" filter="url(#glow)" opacity="0.4" class="floating" />
+    <circle cx="100" cy="700" r="200" fill="#86EFAC" filter="url(#glow)" opacity="0.4" class="floating-alt" />
+    <circle cx="500" cy="50" r="120" fill="#6EE7B7" filter="url(#glow)" opacity="0.35" class="floating" />
 
     <!-- Main Content Container -->
     <g transform="translate(50, 50)">
@@ -121,8 +121,8 @@
             <g class="fade-in delay-2">
                 <g class="floating">
                     <circle cx="0" cy="0" r="55" fill="url(#avatar-grad)" />
-                    <text x="0" y="12" font-size="32" font-weight="bold" fill="#fff" text-anchor="middle">XW</text>
-                    <circle cx="35" cy="35" r="14" fill="#0F172A" stroke="#020617" stroke-width="3"/>
+                    <text x="0" y="12" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle">XW</text>
+                    <circle cx="35" cy="35" r="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="3"/>
                     <text x="35" y="40" font-size="14" text-anchor="middle">👩🏻‍💻</text>
                 </g>
             </g>
