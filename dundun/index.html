@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小孩哥 - 卡通动态卡片</title>
+    <style>
+        :root {
+            --bg-color: #fce4ec;
+            --card-bg: #ffffff;
+            --accent: #ff4081;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .card {
+            position: relative;
+            width: 350px;
+            height: 500px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 8px solid #fff;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+        }
+
+        .tip {
+            margin-top: 15px;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <canvas id="kidCanvas"></canvas>
+        <div class="info">
+            <p class="title">全村最靓的仔</p>
+            <div class="tag">酷盖 · 小孩哥</div>
+        </div>
+    </div>
+    
+    <p class="tip">点击画面触发“帅气”特效</p>
+
+    <script>
+        const canvas = document.getElementById('kidCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 响应式画布
+        function resize() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        let frame = 0;
+        const particles = [];
+        const floatingTexts = [];
+
+        class FloatingText {
+            constructor(x, y, text) {
+                this.x = x;
+                this.y = y;
+                this.text = text;
+                this.opacity = 1;
+                this.life = 60;
+                this.vy = -2;
+            }
+            update() {
+                this.y += this.vy;
+                this.opacity -= 0.02;
+                this.life--;
+            }
+            draw(c) {
+                c.fillStyle = `rgba(255, 64, 129, ${this.opacity})`;
+                c.font = 'bold 24px Arial';
+                c.fillText(this.text, this.x, this.y);
+            }
+        }
+
+        function drawCloud(x, y, scale) {
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(x, y, 20 * scale, 0, Math.PI * 2);
+            ctx.arc(x + 15 * scale, y - 10 * scale, 15 * scale, 0, Math.PI * 2);
+            ctx.arc(x + 30 * scale, y, 20 * scale, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawKid(bounce) {
+            const centerX = 175;
+            const centerY = 280 + bounce;
+
+            // 1. 绘制影子
+            ctx.fillStyle = 'rgba(0,0,0,0.1)';
+            ctx.beginPath();
+            ctx.ellipse(centerX, 420, 80 + bounce, 20, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 2. 绘制摩托车车身 (白色)
+            ctx.fillStyle = '#FFFFFF';
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.roundRect(centerX - 90, centerY + 30, 180, 80, 20);
+            ctx.fill();
+            ctx.stroke();
+
+            // 轮子 (动感效果)
+            const wheelSpin = (frame * 0.2) % (Math.PI * 2);
+            function drawWheel(x, y) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(wheelSpin);
+                ctx.fillStyle = '#333';
+                ctx.beginPath();
+                ctx.arc(0, 0, 35, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.setLineDash([10, 5]);
+                ctx.beginPath();
+                ctx.arc(0, 0, 25, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+            drawWheel(centerX - 60, centerY + 110);
+            drawWheel(centerX + 60, centerY + 110);
+
+            // 3. 绘制小孩哥
+            // 身体/卫衣
+            ctx.fillStyle = '#F5F5DC';
+            ctx.beginPath();
+            ctx.moveTo(centerX - 40, centerY + 40);
+            ctx.lineTo(centerX + 40, centerY + 40);
+            ctx.lineTo(centerX + 50, centerY - 20);
+            ctx.quadraticCurveTo(centerX, centerY - 40, centerX - 50, centerY - 20);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 头部
+            const headY = centerY - 80;
+            ctx.fillStyle = '#FFE0BD';
+            ctx.beginPath();
+            ctx.arc(centerX, headY, 50, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // 头发
+            ctx.fillStyle = '#4A3728';
+            ctx.beginPath();
+            ctx.arc(centerX, headY, 50, Math.PI, Math.PI * 2);
+            ctx.fill();
+
+            // 眼睛 (灵动)
+            const eyeOffset = Math.sin(frame * 0.1) * 2;
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.arc(centerX - 20 + eyeOffset, headY + 5, 5, 0, Math.PI * 2);
+            ctx.arc(centerX + 20 + eyeOffset, headY + 5, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 腮红
+            ctx.fillStyle = 'rgba(255, 182, 193, 0.6)';
+            ctx.beginPath();
+            ctx.arc(centerX - 30, headY + 20, 8, 0, Math.PI * 2);
+            ctx.arc(centerX + 30, headY + 20, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 嘴巴 (淡定微笑)
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(centerX, headY + 25, 10, 0.2, Math.PI - 0.2);
+            ctx.stroke();
+
+            // 4. 车头部分
+            ctx.fillStyle = '#222';
+            ctx.beginPath();
+            ctx.roundRect(centerX - 20, centerY - 10, 110, 50, 10);
+            ctx.fill();
+            
+            // 后视镜
+            ctx.fillStyle = '#81D4FA';
+            ctx.beginPath();
+            ctx.arc(centerX + 80, centerY - 40, 20, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            frame++;
+
+            // 背景流动线条
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 4;
+            for(let i=0; i<5; i++) {
+                let x = (frame * 5 + i * 150) % 500 - 50;
+                ctx.beginPath();
+                ctx.moveTo(x, 100 + i * 50);
+                ctx.lineTo(x + 40, 100 + i * 50);
+                ctx.stroke();
+            }
+
+            // 绘制漂浮的云
+            drawCloud(50 + Math.sin(frame*0.02)*20, 80, 1);
+            drawCloud(300 + Math.cos(frame*0.02)*15, 150, 0.7);
+
+            // 计算跳动感
+            const bounce = Math.sin(frame * 0.15) * 5;
+            
+            drawKid(bounce);
+
+            // 处理点击文字
+            for (let i = floatingTexts.length - 1; i >= 0; i--) {
+                floatingTexts[i].update();
+                floatingTexts[i].draw(ctx);
+                if (floatingTexts[i].life <= 0) floatingTexts.splice(i, 1);
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const words = ["帅！", "酷！", "小孩哥", "牛波一", "整挺好"];
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            floatingTexts.push(new FloatingText(x, y, randomWord));
+        });
+
+        animate();
+    </script>
+</body>
+</html>
