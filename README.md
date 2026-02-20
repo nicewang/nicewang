@@ -1,6 +1,6 @@
 ## Intro.
 ### Profile Card: *Twin-Card A<sup>Rigi</sup>* (Beta) 😋
-- Please ___click___ 🖱️✨ the pic ___below___ 👇 to enter the complete profile card page.
+- Please _click_ 🖱️✨ the pic _below_ 👇 to enter the complete profile card page.
 
 [![logo](.assets/logo.svg)](https://nicewang.github.io/nicewang/)
 
