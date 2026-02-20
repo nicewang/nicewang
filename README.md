@@ -47,4 +47,4 @@ Here are some ideas to get you started:
 <!-- ![Github Card](https://githubcard.com/nicewang.svg?d=Se4qzthb) -->
 <!-- <img width="50%" height="40%" src="https://githubcard.com/nicewang.svg?d=ZvRPYDFj" alt="GitHub Card">  --!>
 
-![logo](.assets/logo.svg)
+![logo](logo.svg)
