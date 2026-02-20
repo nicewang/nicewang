@@ -41,10 +41,9 @@ Here are some ideas to get you started:
 <!-- - 📫 How to reach me: [![Gmail Icon](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:wangxiaonannice@gmail.com?subject=GitHub%20Project%20Inquiry&body=I%20am%20interested%20in%20your%20project.) -->
 
 ## My Github Stats (Just for Fun) 📝
+![logo](logo.svg)
 <!-- <img align="center" src="https://github-readme-stats.vercel.app/api?username=nicewang&count_private=true&show_icons=true" /> -->
 <!-- <img width="73.73%" src="https://githubcard.com/nicewang.svg" alt="GitHub Card"> -->
 <!-- <img src="https://githubcard.com/nicewang.svg" alt="GitHub Card"> -->
 <!-- ![Github Card](https://githubcard.com/nicewang.svg?d=Se4qzthb) -->
 <!-- <img width="50%" height="40%" src="https://githubcard.com/nicewang.svg?d=ZvRPYDFj" alt="GitHub Card">  --!>
-
-![logo](logo.svg)
