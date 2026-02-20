@@ -184,41 +184,31 @@
 
             /* =========================================
                Interactive Avatar Animation Styles
-               (Auto-play for GitHub README compatibility)
+               (Hover Mode, Completely Static Tongue)
                ========================================= */
-            @keyframes poly-face-cycle {
-                0%, 75%, 100% {
-                    filter: blur(0px) brightness(1) contrast(1);
-                    transform: scale(1) rotate(0deg);
-                }
-                80%, 90% {
-                    filter: blur(2px) brightness(0.8) contrast(1.1);
-                    transform: scale(1.05) rotate(-2deg);
-                }
-            }
-
-            @keyframes einstein-pop-cycle {
-                0%, 75%, 100% {
-                    opacity: 0; 
-                    transform: scale(0.5) translateY(10px);
-                }
-                80%, 90% {
-                    opacity: 1;
-                    transform: scale(1) translateY(0);
-                }
-            }
-
+            .avatar-hover-trigger { cursor: pointer; }
+            
             .poly-face-anim { 
+                transition: filter 0.3s ease, transform 0.3s ease;
                 transform-origin: 192px 192px; /* Center of the polygon grid */
-                animation: poly-face-cycle 5s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            .avatar-hover-trigger:hover .poly-face-anim {
+                filter: blur(2px) brightness(0.8) contrast(1.1);
+                transform: scale(1.05) rotate(-2deg);
             }
 
             .einstein-overlay { 
+                opacity: 0; 
+                transform: scale(0.5) translateY(10px);
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                 pointer-events: none;
-                animation: einstein-pop-cycle 5s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            .avatar-hover-trigger:hover .einstein-overlay {
+                opacity: 1;
+                transform: scale(1) translateY(0);
             }
 
-            /* Completely Static Tongue pointing straight down */
+            /* Completely Static Tongue */
             .tongue {
                 transform-origin: top center;
             }
@@ -276,10 +266,10 @@
             </g>
         </g>
 
-        <!-- Right Side Polygonal Avatar with GitHub-Friendly Auto-Playing Einstein Face -->
+        <!-- Right Side Polygonal Avatar with Hover Einstein Face (Static Tongue) -->
         <g transform="translate(750, 10)">
             <g class="fade-in delay-2">
-                <g class="floating">
+                <g class="floating avatar-hover-trigger">
                     
                     <g clip-path="url(#avatar-clip)">
                         <!-- Fallback Background for the Avatar Circle -->
@@ -345,22 +335,22 @@
                             </g>
                         </g>
 
-                        <!-- Einstein Funny Face Overlay (Auto-plays for GitHub compatibility) -->
+                        <!-- Einstein Funny Face Overlay (Appears on Hover) -->
                         <g class="einstein-overlay">
                             <!-- Wacky Eyes -->
-                            <g transform="translate(0, -6)">
+                            <g transform="translate(0, -8)">
                                 <path d="M-22,-4 Q-12,-14 -2,-4" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
                                 <circle cx="-12" cy="0" r="3.5" fill="#0F172A"/>
                                 
                                 <path d="M2,-4 Q12,-19 22,-4" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
                                 <circle cx="12" cy="0" r="5" fill="#0F172A"/>
                             </g>
-                            <!-- Straight Mouth -->
-                            <line x1="-13" y1="4" x2="13" y2="4" stroke="#0F172A" stroke-width="3" stroke-linecap="round"/>
-                            <!-- Completely Static Straight Tongue -->
-                            <g class="tongue" transform="translate(0, 4)">
-                                <path d="M-9,0 C-9,16 -5,26 0,26 C5,26 9,16 9,0 Z" fill="#F43F5E"/>
-                                <line x1="0" y1="0" x2="0" y2="16" stroke="#9F1239" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Mouth -->
+                            <path d="M-12,4 Q0,9 12,4" fill="none" stroke="#0F172A" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Completely Static Tongue -->
+                            <g class="tongue" transform="translate(0, 6)">
+                                <path d="M-9,0 C-9,15 -5,24 0,24 C5,24 9,15 9,0 Z" fill="#F43F5E"/>
+                                <line x1="0" y1="0" x2="0" y2="15" stroke="#9F1239" stroke-width="2" stroke-linecap="round"/>
                             </g>
                         </g>
                     </g>
