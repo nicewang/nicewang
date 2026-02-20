@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 950 900" width="100%" height="100%">
     <defs>
-        <!-- Light Ocean to Grassland Theme Gradients -->
+        <!-- Light Ocean (Laguna Beach) to Grassland Theme Gradients -->
         <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#E0F2FE"/> <!-- Light Ocean/Sky Blue -->
             <stop offset="50%" stop-color="#CCFBF1"/> <!-- Soft Mint/Aqua -->
