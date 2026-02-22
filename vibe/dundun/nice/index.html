@@ -175,29 +175,35 @@
                         <polygon points="215,254 211,266 210,280 213,280 221,291 220,301 227,303 225,315 227,315 227,306 229,303 220,300 222,298 222,292 216,279 213,266" fill="#4f3446"/>
                         <polygon points="281,163 273,162 275,163 275,165 273,167 274,168 274,170 271,173 270,172 271,174 271,182 272,184 274,184 274,182 276,181 278,178 278,176 280,173 281,167 282,166 282,164" fill="#b7b7bc"/>
                         
-                        <!-- === 鬼脸特效图层 (初始隐藏) === -->
+                        <!-- === 说话/大眼特效图层 (初始隐藏) === -->
                         <g id="funny-face-overlay" opacity="0">
-                            <!-- 半透明白底淡化原头像特征 -->
-                            <circle cx="192" cy="192" r="150" fill="rgba(255,255,255,0.75)" />
+                            <!-- 直接覆盖表情，移除原有的白色遮罩层以贴合脸部 -->
                             <g transform="translate(192, 180)">
-                                <!-- 搞怪的 > < 眼睛 -->
-                                <path d="M -70 -30 L -30 0 L -70 30 M 70 -30 L 30 0 L 70 30" fill="none" stroke="#211528" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-                                <!-- 夸张嘴巴的张开弧线 -->
-                                <path d="M -40 50 Q 0 50 40 50" fill="none" stroke="#211528" stroke-width="10" stroke-linecap="round"/>
-                                <!-- 吐出来的大舌头 -->
-                                <path d="M -25 50 Q 0 140 25 50 Z" fill="#ef233c" stroke="#211528" stroke-width="8" stroke-linejoin="round"/>
-                                <!-- 舌头中间的线 -->
-                                <line x1="0" y1="50" x2="0" y2="85" stroke="#211528" stroke-width="6" stroke-linecap="round"/>
                                 <!-- 害羞红晕 -->
-                                <ellipse cx="-90" cy="30" rx="30" ry="20" fill="#ffb5a7" opacity="0.9"/>
-                                <ellipse cx="90" cy="30" rx="30" ry="20" fill="#ffb5a7" opacity="0.9"/>
-                                <!-- 小小的冷汗水滴 (日漫风) -->
-                                <path d="M 80 -80 Q 100 -50 80 -40 Q 60 -50 80 -80" fill="#8dc2fd" stroke="#211528" stroke-width="4"/>
+                                <ellipse cx="-70" cy="20" rx="25" ry="15" fill="#ffb5a7" opacity="0.8"/>
+                                <ellipse cx="70" cy="20" rx="25" ry="15" fill="#ffb5a7" opacity="0.8"/>
+                                
+                                <!-- 大眼睛水汪汪 (左) -->
+                                <circle cx="-50" cy="-20" r="28" fill="#211528"/>
+                                <circle cx="-40" cy="-30" r="12" fill="#ffffff"/> <!-- 大高光 -->
+                                <circle cx="-55" cy="-8" r="5" fill="#ffffff"/>  <!-- 小高光 -->
+                                
+                                <!-- 大眼睛水汪汪 (右) -->
+                                <circle cx="50" cy="-20" r="28" fill="#211528"/>
+                                <circle cx="60" cy="-30" r="12" fill="#ffffff"/> <!-- 大高光 -->
+                                <circle cx="45" cy="-8" r="5" fill="#ffffff"/>  <!-- 小高光 -->
+                        
+                                <!-- 欢快挑起的眉毛 -->
+                                <path d="M -75 -60 Q -50 -75 -25 -55" fill="none" stroke="#211528" stroke-width="6" stroke-linecap="round"/>
+                                <path d="M 25 -55 Q 50 -75 75 -60" fill="none" stroke="#211528" stroke-width="6" stroke-linecap="round"/>
+                        
+                                <!-- 张大的嘴巴 (说话的样子) -->
+                                <path d="M -35 25 Q 0 25 35 25 C 35 80 -35 80 -35 25 Z" fill="#ef233c" stroke="#211528" stroke-width="6" stroke-linejoin="round"/>
+                                <!-- 嘴里的可爱小舌头 -->
+                                <path d="M -20 50 Q 0 40 20 50 C 15 65 -15 65 -20 50 Z" fill="#ffb5a7"/>
                             </g>
                         </g>
                     </g>
-                    <!-- 头像加粗白边框 -->
-                    <circle cx="192" cy="192" r="184" fill="none" stroke="#ffffff" stroke-width="16"/>
                 </g>
             </g>
 
@@ -225,62 +231,23 @@
             const speechText = document.getElementById('speech-text');
             
             let clickCount = 0;
-            let timeoutId = null;
-
-            // 预先加载系统声音列表，以便寻找最合适的女声
-            let voices = [];
-            const loadVoices = () => { voices = window.speechSynthesis.getVoices(); };
-            loadVoices(); // 初始尝试加载
-            if (speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = loadVoices; // 异步加载完毕时触发
-            }
 
             girlWrapper.addEventListener('click', () => {
-                if (!('speechSynthesis' in window)) {
-                    alert('你的浏览器不支持语音哦！');
-                    return;
-                }
-
                 // 防止疯狂连点导致动画乱套
                 if (girlWrapper.classList.contains('is-speaking')) return;
 
-                // 决定这次喊什么
+                // 决定这次喊什么，并选择对应的音频文件
                 const isYiyi = clickCount % 2 === 0;
                 const textToSpeak = isYiyi ? "dundun，叫姨姨！" : "dundun，叫姐姐！";
+                const audioFileName = isYiyi ? "yiyi.mp3" : "jiejie.mp3";
                 clickCount++;
 
                 // 更新并显示气泡
                 speechText.textContent = textToSpeak;
                 speechBubble.classList.remove('hidden');
 
-                // 开启颜艺特效和震动
-                girlWrapper.classList.add('is-speaking');
-                funnyFaceOverlay.style.opacity = '1';
-
-                // 打断旧语音
-                window.speechSynthesis.cancel();
-
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'zh-CN';
-                
-                // 【核心变声魔法】强制将音调拉到最高极值(2.0是上限)，语速调快，模拟小女孩细细的童音
-                utterance.pitch = 2.0; 
-                utterance.rate = 1.3; 
-                utterance.volume = 1.0;
-
-                // 智能寻找系统里最适合被变声的年轻女声
-                if (voices.length > 0) {
-                    const zhVoices = voices.filter(v => v.lang.includes('zh'));
-                    // 优先级：晓晓(微软偏甜美) > Tingting(苹果) > 包含女/Female的 > 任何中文
-                    let bestVoice = zhVoices.find(v => v.name.includes('Xiaoxiao') || v.name.includes('晓晓'));
-                    if (!bestVoice) bestVoice = zhVoices.find(v => v.name.includes('Tingting') || (v.name.includes('Google') && v.name.toLowerCase().includes('female')));
-                    if (!bestVoice) bestVoice = zhVoices.find(v => v.name.includes('女') || v.name.toLowerCase().includes('female'));
-                    if (!bestVoice && zhVoices.length > 0) bestVoice = zhVoices[0];
-                    
-                    if (bestVoice) {
-                        utterance.voice = bestVoice;
-                    }
-                }
+                // 创建并播放本地音频对象
+                const audio = new Audio(audioFileName);
 
                 // 重置动画的逻辑
                 const resetAnimation = () => {
@@ -289,16 +256,23 @@
                     speechBubble.classList.add('hidden');
                 };
 
-                // 绑定结束事件
-                utterance.onend = resetAnimation;
-                utterance.onerror = resetAnimation;
+                // 当音频开始播放时，开启颜艺特效和震动
+                audio.onplay = () => {
+                    girlWrapper.classList.add('is-speaking');
+                    funnyFaceOverlay.style.opacity = '1';
+                };
 
-                // 安全后备：防止某些浏览器没触发 onend 事件卡住动画
-                if (timeoutId) clearTimeout(timeoutId);
-                timeoutId = setTimeout(resetAnimation, 2000);
+                // 当音频播放完毕时，关闭动画
+                audio.onended = resetAnimation;
+
+                // 如果找不到文件，提示用户并关闭动画
+                audio.onerror = () => {
+                    alert(`找不到音频文件！\n请确保你把 "${audioFileName}" 和这个网页文件放在了同一个文件夹里哦~`);
+                    resetAnimation();
+                };
 
                 // 发声！
-                window.speechSynthesis.speak(utterance);
+                audio.play();
             });
         });
     </script>
