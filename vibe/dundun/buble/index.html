@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老奶奶和墩墩打泡泡 - 妈妈（腻腻）定稿版</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #2c3e50;
+      box-sizing: border-box;
+    }
+    .svg-container {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 4 / 3;
+      background-color: #f4f1eb;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="svg-container">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+      <defs>
+        <style>
+          @keyframes bounce { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+          @keyframes float1 { 0% { transform: translate(0, 0) scale(0.5); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(-180px, -250px) scale(1.5); opacity: 0; } }
+          @keyframes float2 { 0% { transform: translate(0, 0) scale(0.4); opacity: 0; } 15% { opacity: 1; } 100% { transform: translate(-250px, -150px) scale(1.2); opacity: 0; } }
+          .kid { animation: bounce 1.2s infinite ease-in-out; transform-origin: bottom center; }
+          .bubble-group { transform: translate(410px, 250px); }
+          .bubble { fill: rgba(173, 216, 230, 0.4); stroke: rgba(255, 255, 255, 0.9); stroke-width: 2px; }
+          .hair-color { fill: #2c2c2c; }
+          .b1 { animation: float1 3s infinite linear; } .b2 { animation: float2 4s infinite linear 0.8s; } .b3 { animation: float1 3.5s infinite linear 1.5s; } .b4 { animation: float2 3.8s infinite linear 2.2s; } .b5 { animation: float1 4s infinite linear 2.8s; }
+        </style>
+      </defs>
+
+      <rect width="100%" height="100%" fill="#f4f1eb" />
+      <rect y="400" width="100%" height="200" fill="#e6e2d8" />
+
+      <g transform="translate(250, 50)">
+        <rect x="0" y="0" width="300" height="350" fill="#d35400" rx="5" />
+        <line x1="150" y1="0" x2="150" y2="350" stroke="#a04000" stroke-width="4" />
+        <rect x="20" y="20" width="110" height="310" fill="none" stroke="#a04000" stroke-width="4" rx="5" />
+        <rect x="170" y="20" width="110" height="310" fill="none" stroke="#a04000" stroke-width="4" rx="5" />
+        <circle cx="130" cy="180" r="10" fill="#f1c40f" />
+        <circle cx="170" cy="180" r="10" fill="#f1c40f" />
+      </g>
+
+      <g transform="translate(100, 0)">
+        <rect x="420" y="380" width="25" height="120" fill="#222" rx="10" />
+        <rect x="450" y="380" width="25" height="120" fill="#222" rx="10" />
+        <ellipse cx="430" cy="500" rx="20" ry="10" fill="#333" />
+        <ellipse cx="465" cy="500" rx="20" ry="10" fill="#333" />
+        <rect x="400" y="200" width="85" height="190" fill="#900C3F" rx="35" />
+        
+        <!-- 奶奶头部 - 保留第三版 -->
+        <circle cx="445" cy="155" r="35" fill="#f5cba7" />
+        <path d="M 412 150 L 405 158 L 412 163" fill="#f5cba7" stroke="#f5cba7" stroke-width="2" stroke-linejoin="round" />
+        <path d="M 430 120 C 460 110, 485 130, 480 165 C 475 190, 450 190, 445 190 C 465 170, 455 135, 430 120 Z" class="hair-color" />
+        <path d="M 430 120 Q 415 125 416 138 Q 422 133 430 120 Z" class="hair-color" />
+        <circle cx="482" cy="155" r="18" class="hair-color" />
+        <path d="M 414 146 Q 419 142 424 146" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M 413 166 Q 418 171 424 166" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M 440 230 Q 360 250 330 250" fill="none" stroke="#900C3F" stroke-width="22" stroke-linecap="round" />
+        <circle cx="330" cy="250" r="12" fill="#f5cba7" />
+        <rect x="300" y="235" width="40" height="25" fill="#a4de02" rx="8" />
+        <rect x="315" y="260" width="15" height="20" fill="#76a002" rx="4" />
+      </g>
+
+      <g class="bubble-group">
+        <g class="b1"><circle cx="0" cy="0" r="20" class="bubble" /><path d="M -8 -8 A 10 10 0 0 1 5 -12" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" /></g>
+        <g class="b2"><circle cx="10" cy="-10" r="15" class="bubble" /><path d="M 2 -16 A 8 8 0 0 1 14 -18" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" /></g>
+        <g class="b3"><circle cx="-15" cy="15" r="25" class="bubble" /><path d="M -25 5 A 12 12 0 0 1 -10 -5" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" /></g>
+        <g class="b4"><circle cx="-5" cy="5" r="12" class="bubble" /></g>
+        <g class="b5"><circle cx="20" cy="0" r="18" class="bubble" /><path d="M 12 -8 A 10 10 0 0 1 25 -12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" /></g>
+      </g>
+
+      <g class="kid">
+        <rect x="235" y="420" width="22" height="60" fill="#2c3e50" rx="8" />
+        <rect x="270" y="420" width="22" height="60" fill="#2c3e50" rx="8" />
+        <ellipse cx="240" cy="485" rx="18" ry="10" fill="#ecf0f1" /><circle cx="230" cy="485" r="4" fill="#d35400" />
+        <ellipse cx="280" cy="485" rx="18" ry="10" fill="#ecf0f1" /><circle cx="290" cy="485" r="4" fill="#d35400" />
+        <rect x="220" y="320" width="85" height="110" fill="#f4d03f" rx="30" />
+        <rect x="220" y="320" width="85" height="110" fill="none" stroke="#fff" stroke-width="4" rx="30" />
+        <circle cx="245" cy="380" r="10" fill="#fff" /><path d="M 240 380 L 250 380 L 245 385 Z" fill="#d35400" />
+        <path d="M 230 350 Q 200 300 220 250" fill="none" stroke="#f4d03f" stroke-width="18" stroke-linecap="round" />
+        <path d="M 290 350 Q 330 310 300 260" fill="none" stroke="#f4d03f" stroke-width="18" stroke-linecap="round" />
+        <circle cx="220" cy="250" r="10" fill="#fad7a1" />
+        <circle cx="300" cy="260" r="10" fill="#fad7a1" />
+
+        <!-- 宝宝头部 - 恢复第二版 -->
+        <circle cx="265" cy="260" r="45" fill="#fad7a1" />
+        <g fill="none" stroke="#2c2c2c" stroke-width="4" stroke-linecap="round">
+          <path d="M 265 215 Q 260 205 255 215" />
+          <path d="M 250 220 Q 240 210 235 220" />
+          <path d="M 280 220 Q 290 210 295 220" />
+        </g>
+        <path d="M 245 255 Q 252 245 260 255" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round" />
+        <path d="M 275 255 Q 282 245 290 255" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round" />
+        <path d="M 255 270 Q 265 285 275 270 Z" fill="#c0392b" /> 
+        <circle cx="240" cy="265" r="6" fill="#f5b7b1" opacity="0.6"/>
+        <circle cx="290" cy="265" r="6" fill="#f5b7b1" opacity="0.6"/>
+      </g>
+    </svg>
+  </div>
+</body>
+</html>
