@@ -154,42 +154,59 @@
         document.addEventListener('DOMContentLoaded', () => {
             const musicBtn = document.getElementById('music-btn');
             
-            // 创建背景音乐对象，指定同目录下的 lullaby.mp3
+            // 创建背景音乐对象
             const bgMusic = new Audio('lullaby.mp3');
-            // 设置循环播放
             bgMusic.loop = true;
             
-            // 【新增】将音量设置为 30%，你可以修改这个数值 (0.0 到 1.0)
-            bgMusic.volume = 0.3; 
+            // 【优化】将音量调小到原来的十分之一 (10%)，确保非常轻柔
+            bgMusic.volume = 0.1; 
+            
+            // 尝试在 Audio 元素层面开启自动播放
+            bgMusic.autoplay = true;
             
             let isPlaying = false;
 
-            // 播放音乐的公共方法
+            // 播放音乐的核心方法
             const playMusic = () => {
                 if (isPlaying) return;
-                bgMusic.play().then(() => {
-                    musicBtn.classList.add('playing');
-                    isPlaying = true;
-                }).catch(e => {
-                    console.log('浏览器限制了声音的自动播放，或者找不到音频文件。');
-                });
+                const playPromise = bgMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        musicBtn.classList.add('playing');
+                        isPlaying = true;
+                    }).catch(e => {
+                        // 浏览器拦截了自动播放，等待下一步的用户交互触发
+                        console.log('自动播放被浏览器拦截，等待用户微小动作触发...');
+                    });
+                }
             };
 
             // 1. 页面加载后立即尝试自动播放
             playMusic();
 
-            // 2. 【新增的小魔法】如果浏览器拦截了自动播放，只要用户点击或触摸屏幕任何地方，立刻播放
-            document.body.addEventListener('click', () => {
-                if (!isPlaying) playMusic();
-            }, { once: true }); // once: true 保证这个事件只触发一次
+            // 2. 【终极自动播放策略】全方位捕捉用户微小动作
+            // 只要鼠标移动、键盘按键、手指触摸或滚动页面，立刻触发播放
+            const triggerEvents = ['mousemove', 'keydown', 'touchstart', 'scroll', 'click'];
             
-            document.body.addEventListener('touchstart', () => {
-                if (!isPlaying) playMusic();
-            }, { once: true });
+            const initPlayOnAction = () => {
+                if (!isPlaying) {
+                    playMusic();
+                }
+                // 一旦触发成功，为了节省性能，移除所有的监听器
+                triggerEvents.forEach(evt => {
+                    document.body.removeEventListener(evt, initPlayOnAction);
+                });
+            };
 
-            // 音乐按钮自己的点击逻辑 (播放/暂停切换)
+            // 绑定所有触发事件
+            triggerEvents.forEach(evt => {
+                document.body.addEventListener(evt, initPlayOnAction, { once: true });
+            });
+
+            // 3. 音乐按钮自己的手动点击控制 (播放/暂停切换)
             musicBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // 防止点击按钮时触发上面的 body 点击事件
+                e.stopPropagation(); // 防止点击按钮时触发 body 上的其他点击事件
                 
                 if (isPlaying) {
                     // 暂停音乐
