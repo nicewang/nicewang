@@ -1,0 +1,604 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { Sword, Shield, Zap, Heart, Skull, User, PlayCircle, Info } from 'lucide-react';
+
+// --- GAME CONSTANTS & DATABASE ---
+const MAX_BOARD_SIZE = 5;
+const MAX_HAND_SIZE = 9;
+const MAX_MANA = 10;
+const STARTING_HP = 20;
+
+// Helper to generate unique IDs for card instances
+const generateId = () => Math.random().toString(36).substring(2, 9);
+
+// Card Database
+const CARD_DATABASE = [
+  { id: 'c1', name: 'Goblin', cost: 1, attack: 1, health: 2, type: 'follower' },
+  { id: 'c2', name: 'Fighter', cost: 2, attack: 2, health: 2, type: 'follower' },
+  { id: 'c3', name: 'Dark Imp', cost: 2, attack: 3, health: 1, type: 'follower' },
+  { id: 'c4', name: 'Shield Knight', cost: 3, attack: 2, health: 4, type: 'follower' },
+  { id: 'c5', name: 'Phantom Assassin', cost: 3, attack: 4, health: 1, type: 'follower' },
+  { id: 'c6', name: 'Goliath', cost: 4, attack: 3, health: 4, type: 'follower' },
+  { id: 'c7', name: 'Hellhound', cost: 4, attack: 4, health: 3, type: 'follower' },
+  { id: 'c8', name: 'Vampire Lord', cost: 5, attack: 4, health: 5, type: 'follower' },
+  { id: 'c9', name: 'Abyssal Demon', cost: 6, attack: 5, health: 6, type: 'follower' },
+  { id: 'c10', name: 'Dragon of Ruin', cost: 8, attack: 7, health: 7, type: 'follower' },
+];
+
+// Generate a random deck
+const generateDeck = () => {
+  const deck = [];
+  for (let i = 0; i < 30; i++) {
+    const randomCard = CARD_DATABASE[Math.floor(Math.random() * CARD_DATABASE.length)];
+    deck.push({ ...randomCard, instanceId: generateId(), canAttack: false, hasAttacked: false });
+  }
+  return deck;
+};
+
+export default function App() {
+  // --- GAME STATE ---
+  const [gameState, setGameState] = useState('menu'); // 'menu', 'playing', 'gameover'
+  const [winner, setWinner] = useState(null);
+  
+  const [player, setPlayer] = useState({ hp: STARTING_HP, maxMana: 0, mana: 0, deck: [], hand: [], board: [] });
+  const [opponent, setOpponent] = useState({ hp: STARTING_HP, maxMana: 0, mana: 0, deck: [], hand: [], board: [] });
+  
+  const [activePlayer, setActivePlayer] = useState('player'); // 'player' or 'opponent'
+  const [turn, setTurn] = useState(1);
+  const [logs, setLogs] = useState([]);
+
+  // --- INTERACTION STATE ---
+  const [selectedHandCardId, setSelectedHandCardId] = useState(null);
+  const [selectedBoardCardId, setSelectedBoardCardId] = useState(null);
+
+  // --- GAME LOGIC FUNCTIONS ---
+
+  const addLog = (message) => {
+    setLogs(prev => [...prev.slice(-4), message]); // Keep last 5 logs
+  };
+
+  const startGame = () => {
+    const pDeck = generateDeck();
+    const oDeck = generateDeck();
+    
+    // Initial draw (3 cards each)
+    const pHand = pDeck.splice(0, 3);
+    const oHand = oDeck.splice(0, 3);
+
+    setPlayer({ hp: STARTING_HP, maxMana: 1, mana: 1, deck: pDeck, hand: pHand, board: [] });
+    setOpponent({ hp: STARTING_HP, maxMana: 1, mana: 1, deck: oDeck, hand: oHand, board: [] });
+    
+    setActivePlayer('player');
+    setTurn(1);
+    setGameState('playing');
+    setWinner(null);
+    setLogs(['Game started! Your turn.']);
+    setSelectedHandCardId(null);
+    setSelectedBoardCardId(null);
+    
+    // Player 1 draws a card for their first turn
+    drawCard('player', pDeck, pHand);
+  };
+
+  const drawCard = (targetPlayer, currentDeck = null, currentHand = null) => {
+    const isPlayer = targetPlayer === 'player';
+    const stateModifier = isPlayer ? setPlayer : setOpponent;
+    
+    stateModifier(prev => {
+      const deckToUse = currentDeck || prev.deck;
+      const handToUse = currentHand || prev.hand;
+      
+      if (deckToUse.length === 0) {
+        addLog(`${targetPlayer === 'player' ? 'You' : 'Opponent'} took fatigue damage!`);
+        return { ...prev, hp: prev.hp - 1 };
+      }
+
+      const newDeck = [...deckToUse];
+      const drawnCard = newDeck.shift();
+      const newHand = [...handToUse];
+
+      if (newHand.length < MAX_HAND_SIZE) {
+        newHand.push(drawnCard);
+      } else {
+        addLog(`${targetPlayer === 'player' ? 'Your' : "Opponent's"} hand is full. Card destroyed!`);
+      }
+
+      return { ...prev, deck: newDeck, hand: newHand };
+    });
+  };
+
+  const playCard = (instanceId) => {
+    if (activePlayer !== 'player') return;
+    
+    const card = player.hand.find(c => c.instanceId === instanceId);
+    if (!card) return;
+
+    if (player.mana < card.cost) {
+      addLog("Not enough play points!");
+      return;
+    }
+
+    if (player.board.length >= MAX_BOARD_SIZE) {
+      addLog("Board is full!");
+      return;
+    }
+
+    setPlayer(prev => ({
+      ...prev,
+      mana: prev.mana - card.cost,
+      hand: prev.hand.filter(c => c.instanceId !== instanceId),
+      // Card enters board with summoning sickness (canAttack = false)
+      board: [...prev.board, { ...card, canAttack: false, hasAttacked: false }]
+    }));
+
+    addLog(`You played ${card.name}.`);
+    setSelectedHandCardId(null);
+  };
+
+  const resolveCombat = (attackerCard, targetInstanceId) => {
+    // Target is Opponent Leader
+    if (targetInstanceId === 'opponent_leader') {
+      setOpponent(prev => {
+        const newHp = prev.hp - attackerCard.attack;
+        if (newHp <= 0) handleGameOver('player');
+        return { ...prev, hp: newHp };
+      });
+      setPlayer(prev => ({
+        ...prev,
+        board: prev.board.map(c => c.instanceId === attackerCard.instanceId ? { ...c, hasAttacked: true, canAttack: false } : c)
+      }));
+      addLog(`${attackerCard.name} attacked Opponent Leader for ${attackerCard.attack} damage!`);
+      setSelectedBoardCardId(null);
+      return;
+    }
+
+    // Target is Opponent Follower
+    const targetCard = opponent.board.find(c => c.instanceId === targetInstanceId);
+    if (!targetCard) return;
+
+    let attackerDead = false;
+    let targetDead = false;
+
+    // Apply damage to both
+    setOpponent(prev => {
+      const newBoard = prev.board.map(c => {
+        if (c.instanceId === targetInstanceId) {
+          const newHealth = c.health - attackerCard.attack;
+          if (newHealth <= 0) targetDead = true;
+          return { ...c, health: newHealth };
+        }
+        return c;
+      }).filter(c => c.health > 0);
+      return { ...prev, board: newBoard };
+    });
+
+    setPlayer(prev => {
+      const newBoard = prev.board.map(c => {
+        if (c.instanceId === attackerCard.instanceId) {
+          const newHealth = c.health - targetCard.attack;
+          if (newHealth <= 0) attackerDead = true;
+          return { ...c, health: newHealth, hasAttacked: true, canAttack: false };
+        }
+        return c;
+      }).filter(c => c.health > 0);
+      return { ...prev, board: newBoard };
+    });
+
+    addLog(`${attackerCard.name} attacked ${targetCard.name}.`);
+    setSelectedBoardCardId(null);
+  };
+
+  const endTurn = () => {
+    if (activePlayer !== 'player') return;
+    setSelectedHandCardId(null);
+    setSelectedBoardCardId(null);
+    startOpponentTurn();
+  };
+
+  const startOpponentTurn = () => {
+    setActivePlayer('opponent');
+    addLog("Opponent's turn.");
+    
+    setOpponent(prev => {
+      const newMaxMana = Math.min(prev.maxMana + 1, MAX_MANA);
+      // Wake up followers
+      const newBoard = prev.board.map(c => ({ ...c, canAttack: true, hasAttacked: false }));
+      return { ...prev, maxMana: newMaxMana, mana: newMaxMana, board: newBoard };
+    });
+
+    drawCard('opponent');
+  };
+
+  // AI Logic - runs when activePlayer becomes 'opponent'
+  useEffect(() => {
+    if (gameState !== 'playing' || activePlayer !== 'opponent') return;
+
+    let aiTimeout;
+    const executeAITurn = async () => {
+      // Small delay for vibe
+      await new Promise(r => setTimeout(r, 1000));
+
+      setOpponent(currentOpponent => {
+        let currentMana = currentOpponent.mana;
+        let currentHand = [...currentOpponent.hand];
+        let currentBoard = [...currentOpponent.board];
+        
+        // 1. Play cards
+        // Sort hand by cost descending to play biggest cards first
+        currentHand.sort((a, b) => b.cost - a.cost);
+        const newHand = [];
+
+        for (const card of currentHand) {
+          if (card.cost <= currentMana && currentBoard.length < MAX_BOARD_SIZE) {
+            currentMana -= card.cost;
+            currentBoard.push({ ...card, canAttack: false, hasAttacked: false });
+            addLog(`Opponent played ${card.name}.`);
+          } else {
+            newHand.push(card);
+          }
+        }
+
+        // 2. Attack logic (we calculate damage against player immediately to avoid complex async state chains in this simple prototype)
+        const readyAttackers = currentBoard.filter(c => c.canAttack && !c.hasAttacked);
+        
+        setPlayer(currentPlayer => {
+          let updatedPlayerBoard = [...currentPlayer.board];
+          let updatedPlayerHp = currentPlayer.hp;
+
+          readyAttackers.forEach(attacker => {
+             // Simple AI: Always attack leader if possible, else attack random follower
+             if (updatedPlayerBoard.length === 0 || Math.random() > 0.5) {
+                updatedPlayerHp -= attacker.attack;
+                addLog(`Opponent's ${attacker.name} attacked your Leader for ${attacker.attack}!`);
+             } else {
+                // Attack random follower
+                const targetIndex = Math.floor(Math.random() * updatedPlayerBoard.length);
+                const target = updatedPlayerBoard[targetIndex];
+                
+                target.health -= attacker.attack;
+                attacker.health -= target.attack;
+                addLog(`Opponent's ${attacker.name} attacked your ${target.name}.`);
+
+                if (target.health <= 0) {
+                    updatedPlayerBoard.splice(targetIndex, 1);
+                }
+             }
+             attacker.hasAttacked = true;
+             attacker.canAttack = false;
+          });
+
+          if (updatedPlayerHp <= 0) {
+            handleGameOver('opponent');
+          }
+
+          return { ...currentPlayer, board: updatedPlayerBoard, hp: updatedPlayerHp };
+        });
+
+        // Filter out dead AI attackers
+        currentBoard = currentBoard.filter(c => c.health > 0);
+
+        return { ...currentOpponent, mana: currentMana, hand: newHand, board: currentBoard };
+      });
+
+      // Pass turn back
+      setTimeout(() => {
+        if (gameState === 'playing') {
+          startPlayerTurn();
+        }
+      }, 1000);
+    };
+
+    executeAITurn();
+    return () => clearTimeout(aiTimeout);
+  }, [activePlayer, gameState]);
+
+  const startPlayerTurn = () => {
+    setActivePlayer('player');
+    setTurn(t => t + 1);
+    addLog(`Turn ${turn + 1} begins.`);
+    
+    setPlayer(prev => {
+      const newMaxMana = Math.min(prev.maxMana + 1, MAX_MANA);
+      const newBoard = prev.board.map(c => ({ ...c, canAttack: true, hasAttacked: false }));
+      return { ...prev, maxMana: newMaxMana, mana: newMaxMana, board: newBoard };
+    });
+
+    drawCard('player');
+  };
+
+  const handleGameOver = (winningPlayer) => {
+    setGameState('gameover');
+    setWinner(winningPlayer);
+  };
+
+  // --- RENDER HELPERS ---
+  
+  const renderCard = (card, isHand, isOpponent, onClick) => {
+    const isSelected = selectedHandCardId === card.instanceId || selectedBoardCardId === card.instanceId;
+    const isPlayable = isHand && activePlayer === 'player' && player.mana >= card.cost;
+    const canAttack = !isHand && activePlayer === 'player' && card.canAttack && !card.hasAttacked;
+    const isTargetable = activePlayer === 'player' && selectedBoardCardId && isOpponent && !isHand;
+
+    // Styles based on context
+    let borderClass = 'border-gray-700';
+    if (isSelected) borderClass = 'border-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.6)]';
+    else if (isPlayable) borderClass = 'border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] cursor-pointer hover:-translate-y-2';
+    else if (canAttack) borderClass = 'border-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)] cursor-pointer';
+    else if (isTargetable) borderClass = 'border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.8)] cursor-pointer hover:scale-105';
+    else if (isHand && !isOpponent) borderClass = 'opacity-60 cursor-not-allowed';
+
+    if (isHand && isOpponent) {
+      return (
+        <div className="w-20 h-28 bg-gradient-to-br from-indigo-900 to-purple-900 rounded-md border-2 border-indigo-500 shadow-md flex items-center justify-center">
+          <div className="w-12 h-12 border border-indigo-400/30 rotate-45 flex items-center justify-center">
+             <div className="w-8 h-8 bg-indigo-500/20" />
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div 
+        key={card.instanceId}
+        onClick={onClick}
+        className={`relative w-24 h-32 bg-gray-800 rounded-md border-2 ${borderClass} flex flex-col justify-between p-1 transition-all duration-200 select-none overflow-hidden group`}
+      >
+        {/* Card Artwork Placeholder Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-700/50 to-gray-900/90 z-0"></div>
+
+        {/* Cost */}
+        <div className="absolute top-1 left-1 bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold text-white z-10 shadow-sm border border-blue-400">
+          {card.cost}
+        </div>
+        
+        {/* Name */}
+        <div className="z-10 mt-6 text-center px-1">
+          <span className="text-[10px] leading-tight font-bold text-gray-200 block drop-shadow-md">
+            {card.name}
+          </span>
+        </div>
+
+        {/* Stats */}
+        <div className="flex justify-between w-full px-1 pb-1 z-10">
+          <div className="bg-yellow-600/90 rounded px-1.5 py-0.5 flex items-center gap-1 border border-yellow-500/50">
+            <Sword size={10} className="text-white"/>
+            <span className="text-xs font-bold text-white">{card.attack}</span>
+          </div>
+          <div className="bg-red-600/90 rounded px-1.5 py-0.5 flex items-center gap-1 border border-red-500/50">
+            <Heart size={10} className="text-white"/>
+            <span className="text-xs font-bold text-white">{card.health}</span>
+          </div>
+        </div>
+
+        {/* Exhausted Overlay */}
+        {!isHand && !card.canAttack && !isOpponent && (
+          <div className="absolute inset-0 bg-black/40 z-20 flex items-center justify-center">
+            <Zap size={24} className="text-gray-400 opacity-50" />
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // --- VIEWS ---
+
+  if (gameState === 'menu') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-black text-white flex flex-col items-center justify-center font-sans">
+        <div className="max-w-md text-center space-y-8 p-8 bg-black/40 rounded-2xl border border-purple-500/30 backdrop-blur-sm shadow-2xl">
+          <h1 className="text-5xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-300 drop-shadow-lg">
+            SHADOW CLASH
+          </h1>
+          <p className="text-gray-400 text-sm">A strategic card battler</p>
+          
+          <div className="space-y-4 pt-4">
+            <button 
+              onClick={startGame}
+              className="w-full py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-lg font-bold text-lg flex items-center justify-center gap-2 transition-transform hover:scale-105"
+            >
+              <PlayCircle size={24} /> Enter the Arena
+            </button>
+          </div>
+
+          <div className="text-left text-xs text-gray-500 bg-black/30 p-4 rounded-lg mt-8">
+            <p className="flex items-center gap-1 mb-2 font-bold text-gray-400"><Info size={14}/> How to play:</p>
+            <ul className="list-disc pl-4 space-y-1">
+              <li>Spend Play Points (top left of cards) to play followers.</li>
+              <li>Followers cannot attack on the turn they are played.</li>
+              <li>Click your ready follower, then click an enemy or the enemy leader to attack.</li>
+              <li>Reduce the opponent leader's HP to 0 to win.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (gameState === 'gameover') {
+    return (
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+        <h1 className={`text-6xl font-bold mb-4 ${winner === 'player' ? 'text-green-500' : 'text-red-600'}`}>
+          {winner === 'player' ? 'VICTORY' : 'DEFEAT'}
+        </h1>
+        <p className="text-xl text-gray-400 mb-8">
+          {winner === 'player' ? 'You have crushed your opponent.' : 'Your leader has fallen.'}
+        </p>
+        <button 
+          onClick={() => setGameState('menu')}
+          className="px-8 py-3 bg-gray-800 hover:bg-gray-700 rounded text-lg font-bold border border-gray-600"
+        >
+          Return to Menu
+        </button>
+      </div>
+    );
+  }
+
+  // PLAYING VIEW
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-zinc-900 text-white font-sans overflow-hidden flex flex-col select-none">
+      
+      {/* HUD & Logs */}
+      <div className="absolute top-4 left-4 z-50 pointer-events-none">
+        <div className="bg-black/60 border border-gray-700 rounded p-2 text-xs text-gray-300 w-64 space-y-1 backdrop-blur-sm">
+          <div className="font-bold text-purple-400 mb-2 border-b border-gray-700 pb-1">Battle Log</div>
+          {logs.map((log, i) => (
+            <div key={i} className="animate-fade-in">{log}</div>
+          ))}
+        </div>
+      </div>
+
+      {/* --- OPPONENT AREA (TOP) --- */}
+      <div className="flex-1 flex flex-col justify-start relative pt-4 px-8 border-b border-red-900/30 bg-gradient-to-b from-red-950/20 to-transparent">
+        
+        {/* Opponent Info & Hand */}
+        <div className="flex justify-between items-start w-full max-w-6xl mx-auto">
+          {/* Hero Portrait */}
+          <div className="flex flex-col items-center gap-2">
+            <div 
+              className={`w-24 h-24 rounded-full border-4 ${selectedBoardCardId && activePlayer === 'player' ? 'border-red-500 shadow-[0_0_20px_rgba(239,68,68,0.8)] cursor-pointer hover:scale-105' : 'border-gray-800'} bg-gradient-to-b from-red-900 to-black flex items-center justify-center relative transition-all`}
+              onClick={() => {
+                if (selectedBoardCardId && activePlayer === 'player') {
+                  const attacker = player.board.find(c => c.instanceId === selectedBoardCardId);
+                  if (attacker) resolveCombat(attacker, 'opponent_leader');
+                }
+              }}
+            >
+              <Skull size={40} className="text-red-400" />
+              <div className="absolute -bottom-3 bg-red-600 text-white px-3 py-1 rounded-full font-bold border-2 border-gray-900 shadow-md flex items-center gap-1">
+                <Heart size={14} /> {opponent.hp}
+              </div>
+            </div>
+            <div className="text-sm font-bold text-gray-400">Enemy Leader</div>
+            <div className="flex items-center gap-1 text-xs text-blue-400 bg-blue-900/30 px-2 py-1 rounded">
+              <Zap size={12} /> {opponent.mana} / {opponent.maxMana}
+            </div>
+          </div>
+
+          {/* Opponent Hand */}
+          <div className="flex gap-[-10px] -space-x-4">
+            {opponent.hand.map((card, idx) => (
+              <div key={idx} className="transform hover:-translate-y-2 transition-transform">
+                {renderCard(card, true, true, () => {})}
+              </div>
+            ))}
+          </div>
+          
+          <div className="w-24"></div> {/* Spacer to balance layout */}
+        </div>
+
+        {/* Opponent Board */}
+        <div className="flex justify-center gap-4 mt-8 h-36 items-center">
+          {opponent.board.map(card => (
+            <div key={card.instanceId}>
+              {renderCard(card, false, true, () => {
+                if (activePlayer === 'player' && selectedBoardCardId) {
+                  const attacker = player.board.find(c => c.instanceId === selectedBoardCardId);
+                  if (attacker) resolveCombat(attacker, card.instanceId);
+                }
+              })}
+            </div>
+          ))}
+          {opponent.board.length === 0 && (
+             <div className="w-full text-center text-gray-600/50 text-sm font-bold tracking-widest uppercase">Enemy Frontline</div>
+          )}
+        </div>
+      </div>
+
+
+      {/* --- MIDDLE ACTION BAR --- */}
+      <div className="h-16 bg-gray-900 border-y border-gray-700 flex items-center justify-center relative z-20 shadow-2xl">
+        <div className={`px-8 py-2 rounded-full font-bold tracking-widest uppercase text-sm ${activePlayer === 'player' ? 'bg-blue-900/50 text-blue-300 border border-blue-500' : 'bg-red-900/50 text-red-300 border border-red-500'}`}>
+          {activePlayer === 'player' ? 'YOUR TURN' : 'ENEMY TURN'}
+        </div>
+
+        {activePlayer === 'player' && (
+          <button 
+            onClick={endTurn}
+            className="absolute right-8 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white px-8 py-3 rounded-md font-bold shadow-[0_0_15px_rgba(217,119,6,0.5)] transition-all hover:scale-105 border border-amber-400"
+          >
+            END TURN
+          </button>
+        )}
+      </div>
+
+
+      {/* --- PLAYER AREA (BOTTOM) --- */}
+      <div className="flex-1 flex flex-col justify-end relative pb-4 px-8 border-t border-blue-900/30 bg-gradient-to-t from-blue-950/20 to-transparent">
+        
+        {/* Player Board */}
+        <div className="flex justify-center gap-4 mb-8 h-36 items-center">
+          {player.board.map(card => (
+            <div key={card.instanceId}>
+              {renderCard(card, false, false, () => {
+                if (activePlayer !== 'player') return;
+                
+                // If we click an exhausted card, do nothing
+                if (!card.canAttack || card.hasAttacked) return;
+
+                // Toggle selection
+                if (selectedBoardCardId === card.instanceId) {
+                  setSelectedBoardCardId(null);
+                } else {
+                  setSelectedBoardCardId(card.instanceId);
+                  setSelectedHandCardId(null); // Clear hand selection
+                }
+              })}
+            </div>
+          ))}
+          {player.board.length === 0 && (
+             <div className="w-full text-center text-gray-600/50 text-sm font-bold tracking-widest uppercase">Your Frontline</div>
+          )}
+        </div>
+
+        {/* Player Info & Hand */}
+        <div className="flex justify-between items-end w-full max-w-6xl mx-auto">
+          {/* Hero Portrait */}
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex items-center gap-1 text-sm text-blue-400 bg-blue-900/40 px-3 py-1.5 rounded border border-blue-800">
+              <Zap size={16} /> 
+              <span className="font-bold text-lg leading-none">{player.mana}</span> 
+              <span className="text-gray-400">/ {player.maxMana}</span>
+            </div>
+            <div className="text-sm font-bold text-gray-400 mt-2">You</div>
+            <div className="w-24 h-24 rounded-full border-4 border-blue-600 bg-gradient-to-b from-blue-900 to-black flex items-center justify-center relative shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+              <User size={40} className="text-blue-300" />
+              <div className="absolute -bottom-3 bg-green-600 text-white px-3 py-1 rounded-full font-bold border-2 border-gray-900 shadow-md flex items-center gap-1">
+                <Heart size={14} /> {player.hp}
+              </div>
+            </div>
+          </div>
+
+          {/* Player Hand */}
+          <div className="flex gap-2 items-end">
+            {player.hand.map(card => (
+              <div key={card.instanceId}>
+                {renderCard(card, true, false, () => {
+                  if (activePlayer !== 'player') return;
+                  
+                  if (selectedHandCardId === card.instanceId) {
+                    // Play card on second click
+                    playCard(card.instanceId);
+                  } else {
+                    // Select card
+                    setSelectedHandCardId(card.instanceId);
+                    setSelectedBoardCardId(null); // Clear board selection
+                  }
+                })}
+              </div>
+            ))}
+          </div>
+          
+          {/* Deck Info */}
+          <div className="w-24 flex flex-col items-end justify-end text-gray-500 text-xs text-right">
+            <div className="w-16 h-24 border-2 border-gray-700 bg-gray-800 rounded-md flex items-center justify-center shadow-lg relative">
+               <div className="absolute inset-2 border border-gray-600 rounded-sm"></div>
+               <span className="font-bold text-gray-400">{player.deck.length}</span>
+            </div>
+            <span className="mt-1">Deck</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  );
+}
