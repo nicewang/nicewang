@@ -38,6 +38,9 @@
             filter: blur(100px);
             opacity: 0.25;
             animation: slowFloat 15s infinite ease-in-out alternate;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .orb-blue { width: 600px; height: 600px; background: #0ea5e9; top: -10%; left: 10%; }
@@ -46,8 +49,8 @@
         .orb-indigo { width: 700px; height: 700px; background: #4338ca; top: 40%; left: 30%; animation-delay: -10s; }
 
         @keyframes slowFloat {
-            from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(40px, 60px) scale(1.15); }
+            from { transform: translate(0, 0) scale(1) translateZ(0); }
+            to { transform: translate(40px, 60px) scale(1.15) translateZ(0); }
         }
 
         /* Star Field Implementation */
@@ -102,6 +105,10 @@
 
         .profile-wrapper {
             animation: pageFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animations-paused * {
+            animation-play-state: paused !important;
         }
     </style>
 </head>
@@ -576,5 +583,36 @@
         </svg>
     </div>
 
+    <!-- Performance Optimization: On-demand Rendering and Page Visibility Control -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const pauseClass = 'animations-paused';
+
+            // 1. Page Visibility API
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) {
+                    document.body.classList.add(pauseClass);
+                } else {
+                    document.body.classList.remove(pauseClass);
+                }
+            });
+
+            // 2. Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        document.body.classList.add(pauseClass);
+                    } else {
+                        if (!document.hidden) {
+                            document.body.classList.remove(pauseClass);
+                        }
+                    }
+                });
+            }, { threshold: 0.01 });
+
+            const wrapper = document.querySelector('.profile-wrapper');
+            if (wrapper) observer.observe(wrapper);
+        });
+    </script>
 </body>
 </html>
