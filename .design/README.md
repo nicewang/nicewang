@@ -11,6 +11,7 @@
     - "Night"
     - "The stars and the beyond."
     - Main Profile Card Page
+
 #### Design Elements
-    - Dolphins (way to Santa Catalina)
-    - Dynamic _Einstein's Tongue Out_
+- Dolphins (way to Santa Catalina)
+- Dynamic _Einstein's Tongue Out_
