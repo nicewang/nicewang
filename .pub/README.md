@@ -13,7 +13,7 @@
   year   = {2018},
   school = {University of Electronic Science and Technology of China},
   note   = {Original Title in Chinese: 架空输电线路风舞监测信号分析与处理},
-  url    = {https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO2NcqYmv-UWTL9K0iS3DPLwNGAFrnC1Mxp68jTz-Wo2J-3vWeq_rGb1JUi4eh_O7NJg44fKKgiYW5EqtX598oi3kBNJT1uG6mup-p7IZ0JQG2MgONnpqEZ1Ax6O4CnmYEr_oH6srrDDBurnCKk-Rr6zslu7TmwI3wD9XLMwoixpjQZQLq3OWfk&uniplatform=NZKPT&language=CHS}
+  url    = {https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO2NcqYmv-UWTL9K0iS3DPLwNGAFrnC1Mxp68jTz-Wo2J-3vWeq_rGb1JUi4eh_O7NJg44fKKgiYW5EqtX598oi3kBNJT1uG6mup-p7IZ0JQG2MgONnpqEZ1Ax6O4CnmYEr_oH6srrDDBurnCKk-Rr6zslu7TmwI3wD9XLMwoixpjQZQLq3OWfk}
 }
 ```
 </details>
