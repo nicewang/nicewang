@@ -15,5 +15,5 @@
   month       = {July},
   day         = {17},
   nationality = {China},
-  url         = {[https://patents.google.com/patent/CN108599863B/en](https://patents.google.com/patent/CN108599863B/en)}
+  url         = {https://patents.google.com/patent/CN108599863B/en}
 }
