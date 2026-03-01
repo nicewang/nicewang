@@ -1,1 +1,1 @@
-- 2026-03-01: LIFO in News
+- [ ] 2026-03-01-1: LIFO in News
