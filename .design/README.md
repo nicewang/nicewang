@@ -1,4 +1,4 @@
-### Design
+### Design[^1]
 #### Design Theme (elements)
 - Rigi Mountain (Schwyz, Swiss, Jun.)
     - Green
@@ -15,3 +15,5 @@
 #### Design Elements
 - Dolphins (way to Santa Catalina)
 - Dynamic _Einstein's Tongue Out_
+
+[^1] This is why _CC-BY-4.0 license_ is needed.
