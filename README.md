@@ -19,4 +19,4 @@ News of my newly released interesting OSS, upcoming soon~
 [^2]: Whether this part shows up depends on my vibe.
 
 ## License
-This README is licensed under a [CC-BY-4.0 license](http://creativecommons.org/licenses/by/4.0/).
+The files and designs are licensed under a [CC-BY-4.0 license](http://creativecommons.org/licenses/by/4.0/).
