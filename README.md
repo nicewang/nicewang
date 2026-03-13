@@ -23,6 +23,21 @@
   
 </details>
 
+## What I am doing on Github?
+
+Typically, a close-loop of research & exploration on my most interested topics:
+
+![close_loop](.assets/close_loop.svg)
+
+<details>
+<summary>Examples</summary>
+
+  - e.g.s of `Step 1: Input & Learning (Stage 1)`: [robo_paper (2019-2023)](https://nicewang.github.io/niceproject/learning/robotics/), [robo_paper (2021-present)](https://github.com/nicewang/robotics_papers), TBDs
+  - e.g.s of `Step 2: Trial and Error (Stage 2)`: [uav_sim](https://github.com/nicewang/uav_sim), [robo_sim](https://github.com/nicewang/robo_sim), reproduction (to be released), TBDs
+  - e.g.s of `Step 3: Create & Innovate (Stage 3)`: PX4-based, FPGA-ZYNQ-based, etc.
+
+</details>
+
 ## License
 The files and designs are licensed under a [CC-BY-4.0 license](http://creativecommons.org/licenses/by/4.0/).
 
