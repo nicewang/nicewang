@@ -16,7 +16,7 @@
 <details>
 <summary>Expand to see the newly released OSS in the past half year</summary>
 
-  - 2026/03/11: [robo_sim](https://github.com/nicewang/uav_sim)
+  - 2026/03/11: [robo_sim](https://github.com/nicewang/robo_sim)
     - include uav_sim 👇
   - 2026/03/08: [uav_sim](https://github.com/nicewang/uav_sim)
   - 2026/03/08: [robotics_papers](https://github.com/nicewang/robotics_papers)
