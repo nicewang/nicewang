@@ -6,7 +6,7 @@
 <details>
 <summary>Click to Copy BibTeX Citation</summary>
 
-```latex
+```BibTex
 @mastersthesis{Wang2018Thesis,
   title  = {Time-Sequential Wind Dancing Signal Anomaly Detection},
   author = {Wang, Xiaonan},
@@ -24,7 +24,7 @@
 <details>
 <summary>BibTeX Citation</summary>
 
-```latex
+```BibTex
 @patent{CN108599863B,
   author      = {Wang, Xiaonan and Wu, Huijuan},
   title       = {Overhead transmission line wind dance monitoring and early warning system and method based on shallow CNN classification model},
@@ -44,7 +44,7 @@
 <details>
 <summary>BibTeX Citation</summary>
 
-```latex
+```BibTex
 @misc{bitmap2svg,
   author       = {Xiaonan (Nice) Wang},
   title        = {Bitmap2SVG: A library to convert bitmaps to SVG using C++ and OpenCV},
