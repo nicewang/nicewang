@@ -38,6 +38,18 @@ Typically, a close-loop of research & exploration on topics that interest me mos
 
 </details>
 
+<details>
+<summary>Current Real-World Sys. (HW Platforms) (Updated: 2026/03/14)</summary>
+
+  - XILINX ZYNQ Suite
+    - ![zynq_1](.assets/hw_till_260314/zynq_1.jpg)
+    - ![zynq_2](.assets/hw_till_260314/zynq_2.jpg)
+  - UGV (STM32 based)
+    - ![ugv_1](.assets/hw_till_260314/ugv_1.jpg)
+    - ![ugv_2](.assets/hw_till_260314/ugv_2.jpg)
+
+</details>
+
 ## License
 The files and designs are licensed under a [CC-BY-4.0 license](http://creativecommons.org/licenses/by/4.0/).
 
