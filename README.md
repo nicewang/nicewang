@@ -32,7 +32,7 @@ Typically, a close-loop of research & exploration on topics that interest me mos
 <details>
 <summary>Examples</summary>
 
-  - e.g.s of `Step 1: Input & Learning (Stage 1)`: [robo_paper (2019-2023)](https://nicewang.github.io/niceproject/learning/robotics/), [robo_paper (2021-present)](https://github.com/nicewang/robotics_papers), TBDs
+  - e.g.s of `Step 1: Input & Learning (Stage 1)`: [robo_paper (2019-2023)](https://nicewang.github.io/niceproject/learning/robotics/), [robo_paper (2021-present)](https://nicewang.github.io/robotics_papers/), TBDs
   - e.g.s of `Step 2: Trial and Error (Stage 2)`: [uav_sim](https://github.com/nicewang/uav_sim), [robo_sim](https://github.com/nicewang/robo_sim), [path_planning](https://github.com/nicewang/robot_path_planning), [mpc](https://github.com/nicewang/model_predictive_control), reproduction (to be released), TBDs
   - e.g.s of `Step 3: Create & Innovate (Stage 3)`: PX4-based, FPGA-ZYNQ-based, etc.
 
