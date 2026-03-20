@@ -1,4 +1,4 @@
-# ![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&text=Xiaonan.Nice.Wang)
+![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&text=Xiaonan.Nice.Wang)
 ## Intro.
 ### Profile Card: *Twin-Card A<sup>Rigi</sup>* (Beta) 😋
 <details>
