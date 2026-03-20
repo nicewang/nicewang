@@ -1,3 +1,4 @@
+# ![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&text=Xiaonan.Nice.Wang)
 ## Intro.
 ### Profile Card: *Twin-Card A<sup>Rigi</sup>* (Beta) 😋
 <details>
@@ -58,4 +59,4 @@ The files and designs are licensed under a [CC-BY-4.0 license](http://creativeco
 
 [^note]: i.e. *Twin-Card B<sup>Laguna Beach</sup>*
 [^2]: Whether this part shows up depends on my vibe.
-[^3]: Sorted according to "first-in, first-out (FIFO)" "desc." order, with the past half year.
+[^3]: Sorted according to "first-in, first-out (FIFO)" "desc." order, within the past half year.
