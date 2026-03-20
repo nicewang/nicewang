@@ -64,7 +64,7 @@ Typically, a close-loop of research & exploration on topics that interest me mos
     - [ ] [hybrid uav mpc](https://github.com/nicewang/uav_sim/tree/main/gym-pybullet-drones/case-1-waypoint/case-1-mpc)
     - [ ] transfer to stm32 based ugv
     - [ ] Ideas: CLF, Normalizing Flow, etc. reproducing
-    - [ ] etc.
+    - [ ] etc. TBD
   
 </details>
 
@@ -73,7 +73,7 @@ Typically, a close-loop of research & exploration on topics that interest me mos
   
   - Draft (to be organized)
     - [ ] CNN demo on zynq 7020
-    - [ ] etc.
+    - [ ] etc. TBD
   
 </details>
 
