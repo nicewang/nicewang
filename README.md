@@ -54,6 +54,29 @@ Typically, a close-loop of research & exploration on topics that interest me mos
 
 </details>
 
+## Milestones
+
+<details>
+<summary>Robo</summary>
+  
+  - Draft (to be organized)
+    - [x] [hybrid uav sample essay (pid)](https://github.com/nicewang/uav_sim/tree/main/gym-pybullet-drones/case-1-waypoint)
+    - [ ] [hybrid uav mpc](https://github.com/nicewang/uav_sim/tree/main/gym-pybullet-drones/case-1-waypoint/case-1-mpc)
+    - [ ] transfer to stm32 based ugv
+    - [ ] Ideas: CLF, Normalizing Flow, etc. reproducing
+    - [ ] etc.
+  
+</details>
+
+<details>
+<summary>FPGA (zynq based)</summary>
+  
+  - Draft (to be organized)
+    - [ ] CNN demo on zynq 7020
+    - [ ] etc.
+  
+</details>
+
 ## License
 The files and designs are licensed under a [CC-BY-4.0 license](http://creativecommons.org/licenses/by/4.0/).
 
