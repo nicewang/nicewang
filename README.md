@@ -73,7 +73,7 @@ Typically, a close-loop of research & exploration on topics that interest me mos
   
   - Draft (to be organized)
     - [ ] CNN demo on zynq 7020
-    - [ ] integrate in to stm32 based ugv for acceleration
+    - [ ] integrate to stm32 based ugv for acceleration
     - [ ] etc. TBD
   
 </details>
