@@ -26,7 +26,7 @@
 
 ## What I am doing on Github?
 
-Typically, a close-loop of research & exploration on topics that interest me most:
+Typically, a closed-loop of research & exploration on topics that interest me most:
 
 ![close_loop](.assets/close_loop.svg)
 
